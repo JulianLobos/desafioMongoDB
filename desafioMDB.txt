@@ -1,0 +1,43 @@
+use ecommerce
+
+db.mensajes.insert({email: 'julianign@gmail.com, mensaje: 'Hola! Como estas?'})
+db.mensajes.insert({email: 'rociod@gmail.com', mensaje: 'Hola, bien y vos?'})
+db.mensajes.insert({email: 'julianign@gmail.com', mensaje: 'Todo tranqui, que hacías?'})
+db.mensajes.insert({email: 'rociod@gmail.com', mensaje: 'Estaba viendo el partido de la selección y vos?'})
+db.mensajes.insert({email: 'julianign@gmail.com', mensaje: 'Yo tambien! lo podriamos ver juntos no?'})
+db.mensajes.insert({email: 'rociod@gmail.com', mensaje: 'Dale buenísimo, en el entretiempo veni y lo vemos'})
+db.mensajes.insert({email: 'julianign@gmail.com', mensaje: 'Dale, llevo unas birras!'})
+db.mensajes.insert({email: 'rociod@gmail.com', mensaje: 'Te espero, nos vemos!'})
+db.mensajes.insert({email: 'julianign@gmail.com', mensaje: 'Chau, nos vemos en un ratito! :)'})
+db.mensajes.insert({email: 'rociod@gmail.com', mensaje: 'No te olvides las birras! Jajaja'})
+
+db.productos.insert({nombre: 'Remera Oversize', descripcion: 'Remera oversize color gris, talle L', codigo: 0001, precio: 2000});
+db.productos.insert({nombre: 'Pantalon Cargo', descripcion: 'Pantalon Cargo color negro talle 44', codigo: 0002, precio: 3740});
+db.productos.insert({nombre: 'Gorra Nike', descripcion: 'Gorra nike, color negro con rosa', codigo: 0003, precio: 1120});
+db.productos.insert({nombre: 'Medias Old School', descripcion: 'Par de medias old school negras y blancas', codigo: 0004, precio: 850});
+db.productos.insert({nombre: 'Rompeviento', descripcion: 'Rompeviento color amarillo y negro', codigo: 0005, precio: 4900});
+db.productos.insert({nombre: 'Buzo Hoodie', descripcion: 'Buzo con capucha, color blanco', codigo: 0006, precio: 4230});
+db.productos.insert({nombre: 'Sweater Liso', descripcion: 'Sweater color azul liso', codigo: 0007, precio: 4200});
+db.productos.insert({nombre: 'Gorra con flor', descripcion: 'Gorra con flor bordada', codigo: 0008, precio: 1350});
+db.productos.insert({nombre: 'Remera Lisa', descripcion: 'Remera lisa, color negro talle L', codigo: 0009, precio: 1980});
+db.productos.insert({nombre: 'Buzo algodon', descripcion: 'Buzo liso, color rojo y blanco', codigo: 0010, precio: 4490});
+
+db.mensajes.find()
+db.productos.find()
+
+db.mensajes.estimatedDocumentCount()
+db.productos.estimatedDocumentCount()
+
+db.productos.insert({nombre: 'Short gabardina', descripcion: 'Pantalon corto de gabardina color verde', codigo: 0011, precio: 3740});
+
+db.productos.find({precio: {$lt: 1000}}, {'nombre': 1});
+db.productos.find({ $and: [ {precio: {$gt: 1000} }, {precio: {$lt: 3000} } ] } )
+db.productos.find({precio: {$gt: 3000}})
+db.productos.find({}, {'nombre': 1}).sort({'precio':1}).skip(2).limit(1)
+db.productos.updateMany({}, {$set: {'stock': 100}}, {upsert: true})
+db.productos.updateMany({precio: {$gt: 4000}}, {$set: {'stock': 0}})
+db.productos.remove({precio: {$lt: 1000}})
+
+use admin
+db.createUser({user: 'pepe', pwd: 'asd456', roles: [{role: 'read', db:'ecommerce'}]})
+
